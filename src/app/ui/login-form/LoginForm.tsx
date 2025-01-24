@@ -13,7 +13,7 @@ const LoginForm = () => {
                        required/>
                 <button className='btn' type="submit">Login</button>
             </form>
-            <p>Don't have account yet? <Link className='text-white hover:underline' href='/register'>Sign Up</Link></p>
+            <p>Don`t have account yet? <Link className='text-white hover:underline' href='/register'>Sign Up</Link></p>
         </div>
     )
 }
