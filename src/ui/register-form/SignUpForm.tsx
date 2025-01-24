@@ -2,6 +2,7 @@ import Link from "next/link";
 // import clsx from 'clsx';
 
 const SignUpForm = () => {
+
     return (
         <div className="flex flex-col items-center gap-4">
             <form className='flex flex-col items-center px-8 gap-4 w-96 m-auto py-8 bg-white rounded-2xl mt-20'>

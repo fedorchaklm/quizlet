@@ -1,4 +1,4 @@
-import {lusitana} from '@/app/ui/fonts'
+import {lusitana} from '@/ui/fonts'
 
 export default function HomePage() {
     return (
