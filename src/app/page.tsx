@@ -1,10 +1,12 @@
-import {lusitana } from '@/app/ui/fonts'
+import {lusitana} from '@/app/ui/fonts'
 
 export default function HomePage() {
     return (
-       <>
-           Home Page
-           <p className={`${lusitana.className}`}>lusitana font</p>
-       </>
+        <>
+            Home Page
+            {/*<p className={`${lusitana.className}`}>lusitana font</p>*/}
+            <p className={`${lusitana.className}`}>lusitana font</p>
+        </>
+
     )
 }
