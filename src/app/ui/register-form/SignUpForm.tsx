@@ -1,4 +1,5 @@
 import Link from "next/link";
+// import clsx from 'clsx';
 
 const SignUpForm = () => {
     return (
@@ -14,6 +15,7 @@ const SignUpForm = () => {
                 <label htmlFor='passwordRepeat'>Confirm your password</label>
                 <input className='border-2 border-black w-full py-2' id='passwordRepeat' type='password' autoComplete='on'
                        required/>
+                {/*<div className={clsx({'bg-red-300 text-3xl' : status === 'red', 'bg-black text-3xl' : status === 'black' })}>dfjgk</div>*/}
                 <button className='btn' type="submit">Sign Up</button>
             </form>
             <p>Already have account? <Link className='text-white hover:underline' href='/login'>Sign In</Link></p>
