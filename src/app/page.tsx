@@ -1,4 +1,5 @@
 import {lusitana} from '@/ui/fonts'
+import {PowerIcon} from "@heroicons/react/16/solid";
 
 export default function HomePage() {
     return (

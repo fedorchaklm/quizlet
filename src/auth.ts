@@ -6,9 +6,11 @@ import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import { User } from '@/lib/models';
 
-async function getUser(username: string): Promise<User | undefined> {
+async function getUser(name: string): Promise<User | undefined> {
+    console.log('> getUser')
     try {
-        const user = await sql<User>`SELECT * FROM users WHERE username=${username}`;
+        const user = await sql<User>`SELECT * FROM users WHERE name=${name}`;
+        console.log(`${user.rows[0]}`);
         return user.rows[0];
     } catch (error) {
         console.error('Failed to fetch user:', error);
@@ -21,14 +23,22 @@ export const { auth, signIn, signOut } = NextAuth({
     providers: [
         Credentials({
             async authorize(credentials) {
+                console.log('> authorize', credentials);
                 const parsedCredentials = z
-                    .object({ username: z.string().min(3), password: z.string().min(6) })
+                    .object({ name: z.string().min(3), password: z.string().min(5) })
                     .safeParse(credentials);
+
+                console.log('> 1', parsedCredentials.success)
 
                 if (parsedCredentials.success) {
                     try {
-                        const { username, password } = parsedCredentials.data;
-                        const user = await getUser(username);
+                        const { name, password } = parsedCredentials.data;
+
+                        console.log('> 2', { data: parsedCredentials.data, name, password })
+
+                        const user = await getUser(name);
+
+                        console.log('> 3', { user })
 
                         if (!user) {
                             throw new Error('User not found');
