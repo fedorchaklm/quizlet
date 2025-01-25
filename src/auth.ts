@@ -6,9 +6,9 @@ import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import { User } from '@/lib/models';
 
-async function getUser(email: string): Promise<User | undefined> {
+async function getUser(username: string): Promise<User | undefined> {
     try {
-        const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+        const user = await sql<User>`SELECT * FROM users WHERE username=${username}`;
         return user.rows[0];
     } catch (error) {
         console.error('Failed to fetch user:', error);
