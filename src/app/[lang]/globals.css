@@ -31,3 +31,7 @@ body {
 input::placeholder {
   @apply px-2;
 }
+
+.btn-special {
+  @apply flex justify-center items-center bg-white px-2 hover:text-foreground h-10 rounded-lg hover:bg-amber-200;
+}

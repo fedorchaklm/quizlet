@@ -3,15 +3,19 @@ import '@/app/[lang]/globals.css'
 import {inter} from '@/ui/fonts';
 import Menu from "@/ui/menu/Menu";
 import Logo from "@/ui/logo/Logo";
-import LogInOut from "@/ui/login-form/LogInOut";
 import {getDictionary, i18n, type Locale} from "@/i18n.config";
+import LocaleSwitcher from "@/ui/locale-switcher/LocaleSwitcher";
+import {auth} from "@/auth";
+import LogOut from "@/ui/log-out/LogOut";
+import LogIn from "@/ui/log-in/LogIn";
 
 export async function generateStaticParams() {
-    return i18n.locales.map((locale) => ({ lang: locale }));
+    return i18n.locales.map((locale) => ({lang: locale}));
 }
 
 export default async function RootLayout({children, params}: PropsWithChildren<{ params: Promise<{ lang: Locale }> }>) {
-    const { lang } = await params;
+    const session = await auth();
+    const {lang} = await params;
     const dictionary = await getDictionary(lang);
 
     return (
@@ -22,7 +26,10 @@ export default async function RootLayout({children, params}: PropsWithChildren<{
                 <Logo/>
                 <Menu dictionary={dictionary.menu}/>
             </div>
-            <LogInOut/>
+            <div className='flex items-center gap-4'>
+                <LocaleSwitcher/>
+                {session !== null ? <LogOut/> : <LogIn/>}
+            </div>
         </div>
         {children}
         </body>
