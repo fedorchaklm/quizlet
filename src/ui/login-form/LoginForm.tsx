@@ -5,8 +5,14 @@ import {authenticate} from '@/lib/actions';
 import {
     ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
+import {useParams, useSearchParams} from 'next/navigation'
 
 const LoginForm = () => {
+    const params = useParams();
+    console.log('>', { params })
+    const searchParams =  useSearchParams();
+    const callbackUrl = searchParams.get('callbackUrl') ?? '/';
+    // const authenticateWithCallbackUrl = authenticate.bind(null, callbackUrl);
     const [errorMessage, formAction, isPending] = useActionState(
         authenticate,
         undefined,
@@ -24,9 +30,10 @@ const LoginForm = () => {
                 <input className='border-2 border-black w-full py-2' id='password' type='password' autoComplete='on'
                        name='password'
                        required/>
+                <input type='hidden' name='redirectTo' value={callbackUrl}/>
                 <button className='btn' type="submit" disabled={isPending}>Login</button>
             </form>
-            <p>Don`t have account yet? <Link className='text-white hover:underline' href='/register'>Sign Up</Link></p>
+            <p className='text-white'>Don`t have account yet? <Link className='text-amber-200 hover:underline' href='/register'>Sign Up</Link></p>
             {errorMessage && (
                 <>
                     <ExclamationCircleIcon className="h-5 w-5 text-red-500"/>

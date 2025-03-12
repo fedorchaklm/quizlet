@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth';
-import { authConfig } from './auth.config';
+import { authConfig } from '@/auth.config';
 import { sql } from '@vercel/postgres';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
@@ -25,20 +25,13 @@ export const { auth, signIn, signOut } = NextAuth({
             async authorize(credentials) {
                 console.log('> authorize', credentials);
                 const parsedCredentials = z
-                    .object({ name: z.string().min(3), password: z.string().min(5) })
+                    .object({ name: z.string().min(3), password: z.string().min(1) })
                     .safeParse(credentials);
-
-                console.log('> 1', parsedCredentials.success)
 
                 if (parsedCredentials.success) {
                     try {
                         const { name, password } = parsedCredentials.data;
-
-                        console.log('> 2', { data: parsedCredentials.data, name, password })
-
                         const user = await getUser(name);
-
-                        console.log('> 3', { user })
 
                         if (!user) {
                             throw new Error('User not found');
@@ -65,3 +58,4 @@ export const { auth, signIn, signOut } = NextAuth({
         }),
     ],
 });
+
