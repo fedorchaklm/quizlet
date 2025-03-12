@@ -8,11 +8,9 @@ import {
 import {useParams, useSearchParams} from 'next/navigation'
 
 const LoginForm = () => {
-    const params = useParams();
-    console.log('>', { params })
+    const { lang } = useParams();
     const searchParams =  useSearchParams();
-    const callbackUrl = searchParams.get('callbackUrl') ?? '/';
-    // const authenticateWithCallbackUrl = authenticate.bind(null, callbackUrl);
+    const callbackUrl = searchParams.get('callbackUrl') ?? `/${lang}`;
     const [errorMessage, formAction, isPending] = useActionState(
         authenticate,
         undefined,

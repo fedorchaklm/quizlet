@@ -4,12 +4,13 @@ import {inter} from '@/ui/fonts';
 import Menu from "@/ui/menu/Menu";
 import Logo from "@/ui/logo/Logo";
 import LogInOut from "@/ui/login-form/LogInOut";
+import {i18n, type Locale} from "@/i18n.config";
 
 export async function generateStaticParams() {
-    return [{ lang: 'en-US' }, { lang: 'uk-UA' }]
+    return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default async function RootLayout({children, params}: PropsWithChildren<{ params: Promise<{ lang: 'en-US' | 'de' }> }>) {
+export default async function RootLayout({children, params}: PropsWithChildren<{ params: Promise<{ lang: Locale }> }>) {
     const { lang } = await params;
     return (
         <html lang={lang}>
