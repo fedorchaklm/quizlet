@@ -1,14 +1,15 @@
 import Link from "next/link";
 import './Menu.css';
+import {getDictionary} from "@/i18n.config";
 
-const Menu = () => {
+const Menu = ({ dictionary }:  { dictionary: Awaited<ReturnType<typeof getDictionary>>["menu"] }) => {
     return (
         <ul className='menu'>
             <li className='menu-item'>
-                <Link href={'/'}>Home</Link>
+                <Link href={'/'}>{dictionary.home}</Link>
             </li>
             <li className='menu-item'>
-                <Link href={'/dashboard'}>Dashboard</Link>
+                <Link href={'/dashboard'}>{dictionary.dashboard}</Link>
             </li>
         </ul>
     )

@@ -56,6 +56,7 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(url);
     }
 
+    // @ts-ignore: TODO request isn't match
     return auth(request);
 }
 
