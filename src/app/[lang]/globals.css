@@ -35,3 +35,7 @@ input::placeholder {
 .btn-special {
   @apply flex justify-center items-center bg-white px-2 hover:text-foreground h-10 rounded-lg hover:bg-amber-200;
 }
+
+.active {
+  @apply text-amber-200;
+}

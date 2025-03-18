@@ -8,6 +8,8 @@ import LocaleSwitcher from "@/ui/locale-switcher/LocaleSwitcher";
 import {auth} from "@/auth";
 import LogOut from "@/ui/log-out/LogOut";
 import LogIn from "@/ui/log-in/LogIn";
+import {ThemeProvider} from "@/context/ThemeContext";
+import ChangeThemeButton from "@/ui/change-theme-button/ChangeThemeButton";
 
 export async function generateStaticParams() {
     return i18n.locales.map((locale) => ({lang: locale}));
@@ -18,20 +20,24 @@ export default async function RootLayout({children, params}: PropsWithChildren<{
     const {lang} = await params;
     const dictionary = await getDictionary(lang);
 
+    // @ts-ignore
     return (
         <html lang={lang}>
         <body className={`${inter.className} antialiased`}>
-        <div className="flex justify-between items-center mx-4 my-4">
-            <div className='flex items-center gap-4'>
-                <Logo/>
-                <Menu dictionary={dictionary.menu}/>
+        <ThemeProvider>
+            <div className="flex justify-between items-center mx-4 my-4">
+                <div className='flex items-center gap-4'>
+                    <Logo/>
+                    <Menu dictionary={dictionary.menu}/>
+                </div>
+                <div className='flex items-center gap-4'>
+                    <LocaleSwitcher/>
+                    <ChangeThemeButton/>
+                    {session !== null ? <LogOut/> : <LogIn/>}
+                </div>
             </div>
-            <div className='flex items-center gap-4'>
-                <LocaleSwitcher/>
-                {session !== null ? <LogOut/> : <LogIn/>}
-            </div>
-        </div>
-        {children}
+            {children}
+        </ThemeProvider>
         </body>
         </html>
     )
